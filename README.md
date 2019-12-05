@@ -1,7 +1,7 @@
 # Containers-OrderedSet
 
 [![Build Status](https://travis-ci.org/olekscode/Containers-OrderedSet.svg?branch=master)](https://travis-ci.org/olekscode/Containers-OrderedSet)
-[![Build status](https://ci.appveyor.com/api/projects/status/lvff6yqo5bg84bsj?svg=true)](https://ci.appveyor.com/project/olekscode/apriori-9rq1r)
+[![Build status](https://ci.appveyor.com/api/projects/status/te7uf184lua3svb4?svg=true)](https://ci.appveyor.com/project/olekscode/containers-orderedset)
 [![Coverage Status](https://coveralls.io/repos/github/olekscode/Containers-OrderedSet/badge.svg?branch=master)](https://coveralls.io/github/olekscode/Containers-OrderedSet?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/olekscode/Containers-OrderedSet/master/LICENSE)
 [![Pharo version](https://img.shields.io/badge/Pharo-6.1-%23aac9ff.svg)](https://pharo.org/download)
