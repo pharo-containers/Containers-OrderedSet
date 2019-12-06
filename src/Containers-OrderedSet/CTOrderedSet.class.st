@@ -46,6 +46,20 @@ CTOrderedSet >> intersection: aCollection [
 	^ self select: [ :each | aCollection includes: each ]
 ]
 
+{ #category : #testing }
+CTOrderedSet >> isSubsetOf: aCollection [
+	"Answer true if aCollection includes all elements of the receiver"
+	
+	^ aCollection includesAll: self
+]
+
+{ #category : #testing }
+CTOrderedSet >> isSupersetOf: aCollection [
+	"Answer true if receiver includes all elements of aCollection"
+	
+	^ self includesAll: aCollection
+]
+
 { #category : #accessing }
 CTOrderedSet >> union: aCollection [
 	"Union of two sets. The order is defined as follows:

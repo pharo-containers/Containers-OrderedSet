@@ -20,7 +20,7 @@ CTOrderedSetTest >> testAddAllDistinctToNonEmpty [
 	self assert: set asArray equals: #(42 lorem ipsum dolor sit amet).
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAddAllDuplicateToEmpty [
 	| set |
 	set := CTOrderedSet new.
@@ -28,7 +28,7 @@ CTOrderedSetTest >> testAddAllDuplicateToEmpty [
 	self assert: set asArray equals: #(lorem ipsum dolor amet).
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAddAllDuplicateToNonEmpty [
 	| set |
 	set := CTOrderedSet with: 42.
@@ -47,7 +47,7 @@ CTOrderedSetTest >> testAddAllFirst [
 	self assert: set equals: expected.
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAddAllFirstDuplicate [
 	| set expected |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
@@ -69,7 +69,7 @@ CTOrderedSetTest >> testAddAllLast [
 	self assert: set equals: expected.
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAddAllLastDuplicate [
 	| set expected |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
@@ -88,7 +88,7 @@ CTOrderedSetTest >> testAddDistinctToNonEmpty [
 	self assert: set asArray equals: #(10 42).
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAddDuplicate [
 	| set |
 	set := CTOrderedSet with: 42.
@@ -108,7 +108,7 @@ CTOrderedSetTest >> testAddFirst [
 	self assert: set equals: expected.
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAddFirstDuplicate [
 	| set expected |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
@@ -130,7 +130,7 @@ CTOrderedSetTest >> testAddLast [
 	self assert: set equals: expected.
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAddLastDuplicate [
 	| set expected |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
@@ -171,14 +171,14 @@ CTOrderedSetTest >> testAtPut [
 	self assert: set equals: expected.
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAtPutDuplicate [
 	| set |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
 	self should: [ set at: 3 put: #ipsum ] raise: CTDuplicateException.
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testAtPutDuplicateSamePosition [
 	| set expected |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
@@ -251,7 +251,7 @@ CTOrderedSetTest >> testEnumerateCollectDistinct [
 	self assert: actual equals: expected.
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testEnumerateCollectDuplicate [
 	| set actual expected |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
@@ -408,7 +408,7 @@ CTOrderedSetTest >> testInstanceCreationWithAllDistinct [
 	self assert: set asArray equals: #(lorem ipsum dolor sit amet).
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testInstanceCreationWithAllDuplicate [
 	| set |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor ipsum ipsum amet).
@@ -426,7 +426,7 @@ CTOrderedSetTest >> testInstanceCreationWithWithDistinct [
 	self assert: set asArray equals: #(lorem ipsum).
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testInstanceCreationWithWithDuplicate [
 	| set |
 	set := CTOrderedSet with: #lorem with: #lorem.
@@ -444,7 +444,7 @@ CTOrderedSetTest >> testInstanceCreationWithWithWithDistinct [
 	self assert: set asArray equals: #(lorem ipsum dolor).
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testInstanceCreationWithWithWithDuplicate [
 	| set |
 	set := CTOrderedSet with: #lorem with: #ipsum with: #lorem.
@@ -462,7 +462,7 @@ CTOrderedSetTest >> testInstanceCreationWithWithWithWithDistinct [
 	self assert: set asArray equals: #(lorem ipsum dolor sit).
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testInstanceCreationWithWithWithWithDuplicate [
 	| set |
 	set := CTOrderedSet with: #lorem with: #ipsum with: #lorem with: #dolor.
@@ -480,7 +480,7 @@ CTOrderedSetTest >> testInstanceCreationWithWithWithWithWithDistinct [
 	self assert: set asArray equals: #(lorem ipsum dolor sit amet).
 ]
 
-{ #category : #'set tests' }
+{ #category : #'no duplicates tests' }
 CTOrderedSetTest >> testInstanceCreationWithWithWithWithWithDuplicate [
 	| set |
 	set := CTOrderedSet with: #lorem with: #ipsum with: #lorem with: #dolor with: #ipsum.
@@ -528,6 +528,38 @@ CTOrderedSetTest >> testIsSortedTrue [
 	| set |
 	set := CTOrderedSet withAll: #(0 1 2 3 4 5 6 7 8 9).
 	self assert: set isSorted.
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testIsSubsetOf [
+	| setA setB setC |
+	
+	setA := CTOrderedSet withAll: #(a b c d e).
+	setB := CTOrderedSet withAll: #(c e a).
+	setC := CTOrderedSet withAll: #(b c f).
+	
+	self deny: (setA isSubsetOf: setB).
+	self deny: (setA isSubsetOf: setC).
+	self assert: (setB isSubsetOf: setA).
+	self deny: (setB isSubsetOf: setC).
+	self deny: (setC isSubsetOf: setA).
+	self deny: (setC isSubsetOf: setB).
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testIsSupersetOf [
+	| setA setB setC |
+	
+	setA := CTOrderedSet withAll: #(a b c d e).
+	setB := CTOrderedSet withAll: #(c e a).
+	setC := CTOrderedSet withAll: #(b c f).
+	
+	self assert: (setA isSupersetOf: setB).
+	self deny: (setA isSupersetOf: setC).
+	self deny: (setB isSupersetOf: setA).
+	self deny: (setB isSupersetOf: setC).
+	self deny: (setC isSupersetOf: setA).
+	self deny: (setC isSupersetOf: setB).
 ]
 
 { #category : #'ordered collection tests' }
