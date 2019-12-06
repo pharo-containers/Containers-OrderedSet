@@ -175,7 +175,17 @@ CTOrderedSetTest >> testAtPut [
 CTOrderedSetTest >> testAtPutDuplicate [
 	| set |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
-	self should: [ set at: 3 put: #ipsum ] raise: Error.
+	self should: [ set at: 3 put: #ipsum ] raise: CTDuplicateException.
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAtPutDuplicateSamePosition [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	set at: 3 put: #dolor.
+	
+	expected := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	self assert: set equals: expected
 ]
 
 { #category : #'set tests' }
