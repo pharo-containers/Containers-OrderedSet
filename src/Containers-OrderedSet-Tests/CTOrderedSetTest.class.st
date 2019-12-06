@@ -149,6 +149,20 @@ CTOrderedSetTest >> testAddToEmpty [
 	self assert: set asArray equals: #(42).
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAllLargestSubsets [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(a c b).
+	
+	expected := CTOrderedSet withAll: { 
+		CTOrderedSet withAll: #(a c) .
+		CTOrderedSet withAll: #(a b) .
+		CTOrderedSet withAll: #(c b) }.
+		
+	actual := set allLargestSubsets.
+	self assert: actual equals: expected.
+]
+
 { #category : #'ordered collection tests' }
 CTOrderedSetTest >> testAt [
 	| set expected actual |

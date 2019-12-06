@@ -22,6 +22,13 @@ CTOrderedSet >> addLast: newObject [
 	^ newObject
 ]
 
+{ #category : #'as yet unclassified' }
+CTOrderedSet >> allLargestSubsets [
+	"Generate all subsets of size k-1 where k is the size of receiver"
+	
+	^ self reversed collect: [ :each | self copyWithout: each ].
+]
+
 { #category : #accessing }
 CTOrderedSet >> at: anInteger put: anObject [
 	"Put anObject at element index anInteger. Raise an exception if the object is already included"
