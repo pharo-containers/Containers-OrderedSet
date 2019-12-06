@@ -20,6 +20,28 @@ CTOrderedSetTest >> testAddAllDistinctToNonEmpty [
 	self assert: set asArray equals: #(42 lorem ipsum dolor sit amet).
 ]
 
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testAddAllFirst [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	set addAllFirst: #(hello world).
+	expected := CTOrderedSet withAll: #(hello world lorem ipsum dolor sit amet).
+	
+	self assert: set equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testAddAllLast [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	set addAllLast: #(hello world).
+	expected := CTOrderedSet withAll: #(lorem ipsum dolor sit amet hello world).
+	
+	self assert: set equals: expected.
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testAddDistinctToNonEmpty [
 	| set |
@@ -28,12 +50,67 @@ CTOrderedSetTest >> testAddDistinctToNonEmpty [
 	self assert: set asArray equals: #(10 42).
 ]
 
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testAddFirst [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	set addFirst: #hello.
+	expected := CTOrderedSet withAll: #(hello lorem ipsum dolor sit amet).
+	
+	self assert: set equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testAddLast [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	set addLast: #hello.
+	expected := CTOrderedSet withAll: #(lorem ipsum dolor sit amet hello).
+	
+	self assert: set equals: expected.
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testAddToEmpty [
 	| set |
 	set := CTOrderedSet new.
 	set add: 42.
 	self assert: set asArray equals: #(42).
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testAt [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set at: 3.
+	expected := #dolor.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testAtPut [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	self assert: (set at: 3 put: #hello) equals: #hello.
+	
+	expected := CTOrderedSet withAll: #(lorem ipsum hello sit amet).
+	self assert: set equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testEighth [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set eighth.
+	expected := #eight.
+	
+	self assert: actual equals: expected.
 ]
 
 { #category : #'collection tests' }
@@ -131,6 +208,53 @@ CTOrderedSetTest >> testEnumerateSelect [
 	self assert: actual equals: expected.
 ]
 
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testFifth [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set fifth.
+	expected := #five.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testFirst [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set first.
+	expected := #one.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testFourth [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set fourth.
+	expected := #four.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'collection tests' }
+CTOrderedSetTest >> testIncludesAllFalse [
+	| set |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	self deny: (set includesAll: #(lorem hello)).
+]
+
+{ #category : #'collection tests' }
+CTOrderedSetTest >> testIncludesAllTrue [
+	| set |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	self assert: (set includesAll: #(lorem sit)).
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testIncludesFalse [
 	| set |
@@ -143,6 +267,17 @@ CTOrderedSetTest >> testIncludesTrue [
 	| set |
 	set := CTOrderedSet with: 42.
 	self assert: (set includes: 42).
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testIndexOf [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set indexOf: #dolor.
+	expected := 3.
+	
+	self assert: actual equals: expected.
 ]
 
 { #category : #'collection tests' }
@@ -213,6 +348,42 @@ CTOrderedSetTest >> testIsNotEmpty [
 	self assert: set isNotEmpty.
 ]
 
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testIsSortedFalse [
+	| set |
+	set := CTOrderedSet withAll: #(2 3 6 4 1 5 9 7 8 0).
+	self deny: set isSorted.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testIsSortedTrue [
+	| set |
+	set := CTOrderedSet withAll: #(0 1 2 3 4 5 6 7 8 9).
+	self assert: set isSorted.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testLast [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set last.
+	expected := #eleven.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testNinth [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set ninth.
+	expected := #nine.
+	
+	self assert: actual equals: expected.
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testRemoveAbsentError [
 	| set |
@@ -251,12 +422,49 @@ CTOrderedSetTest >> testRemoveAllOneAbsentError [
 	self assert: set asArray equals: #(lorem dolor sit amet).
 ]
 
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testRemoveAt [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	self assert: (set removeAt: 3) equals: #dolor.
+	
+	expected := CTOrderedSet withAll: #(lorem ipsum sit amet).
+	self assert: set equals: expected.
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testRemoveExisting [
 	| set |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
 	self assert: (set remove: #ipsum) equals: #ipsum.
 	self assert: set asArray equals: #(lorem dolor sit amet).
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testRemoveFirst [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	self assert: set removeFirst equals: #lorem.
+	
+	expected := CTOrderedSet withAll: #(ipsum dolor sit amet).
+	self assert: set equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testRemoveFirstN [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set removeFirst: 3.
+	"expected := CTOrderedSet withAll: #(lorem ipsum dolor)."
+	expected := #(lorem ipsum dolor).
+	
+	self assert: actual equals: expected.
+	
+	expected := CTOrderedSet withAll: #(sit amet).
+	self assert: set equals: expected.
 ]
 
 { #category : #'collection tests' }
@@ -289,9 +497,104 @@ CTOrderedSetTest >> testRemoveIfAbsentFromEmpty [
 	self assert: (set remove: #hello ifAbsent: [ 'oops' ]) equals: #oops.
 ]
 
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testRemoveLast [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	self assert: set removeLast equals: #amet.
+	
+	expected := CTOrderedSet withAll: #(lorem ipsum dolor sit).
+	self assert: set equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testRemoveLastN [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set removeLast: 3.
+	"expected := CTOrderedSet withAll: #(dolor sit amet)."
+	expected := #(dolor sit amet).
+	
+	self assert: actual equals: expected.
+	
+	expected := CTOrderedSet withAll: #(lorem ipsum).
+	self assert: set equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testSecond [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set second.
+	expected := #two.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testSeventh [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set seventh.
+	expected := #seven.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testSixth [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set sixth.
+	expected := #six.
+	
+	self assert: actual equals: expected.
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testSizeIsOne [
 	| set |
 	set := CTOrderedSet with: 42.
 	self assert: set size equals: 1.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testSort [
+	| set expected |
+	set := CTOrderedSet withAll: #(2 3 6 4 1 5 9 7 8 0).
+	
+	set sort.
+	expected := CTOrderedSet withAll: #(0 1 2 3 4 5 6 7 8 9).
+	
+	self assert: set equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testSorted [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(2 3 6 4 1 5 9 7 8 0).
+	
+	actual := set sorted.
+	expected := CTOrderedSet withAll: #(0 1 2 3 4 5 6 7 8 9).
+	
+	self assert: actual equals: expected.
+	
+	expected := CTOrderedSet withAll: #(2 3 6 4 1 5 9 7 8 0).
+	self assert: set equals: expected.
+]
+
+{ #category : #'ordered collection tests' }
+CTOrderedSetTest >> testThird [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(one two three four five six seven eight nine ten eleven).
+	
+	actual := set third.
+	expected := #three.
+	
+	self assert: actual equals: expected.
 ]
