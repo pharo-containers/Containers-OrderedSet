@@ -20,6 +20,22 @@ CTOrderedSetTest >> testAddAllDistinctToNonEmpty [
 	self assert: set asArray equals: #(42 lorem ipsum dolor sit amet).
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAddAllDuplicateToEmpty [
+	| set |
+	set := CTOrderedSet new.
+	set addAll: #(lorem ipsum dolor ipsum ipsum amet).
+	self assert: set asArray equals: #(lorem ipsum dolor amet).
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAddAllDuplicateToNonEmpty [
+	| set |
+	set := CTOrderedSet with: 42.
+	set addAll: #(lorem 42 ipsum dolor ipsum ipsum amet).
+	self assert: set asArray equals: #(42 lorem ipsum dolor amet).
+]
+
 { #category : #'ordered collection tests' }
 CTOrderedSetTest >> testAddAllFirst [
 	| set expected |
@@ -27,6 +43,17 @@ CTOrderedSetTest >> testAddAllFirst [
 	
 	set addAllFirst: #(hello world).
 	expected := CTOrderedSet withAll: #(hello world lorem ipsum dolor sit amet).
+	
+	self assert: set equals: expected.
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAddAllFirstDuplicate [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	set addAllFirst: #(hello ipsum).
+	expected := CTOrderedSet withAll: #(hello lorem ipsum dolor sit amet).
 	
 	self assert: set equals: expected.
 ]
@@ -42,12 +69,32 @@ CTOrderedSetTest >> testAddAllLast [
 	self assert: set equals: expected.
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAddAllLastDuplicate [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	set addAllLast: #(hello ipsum).
+	expected := CTOrderedSet withAll: #(lorem ipsum dolor sit amet hello).
+	
+	self assert: set equals: expected.
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testAddDistinctToNonEmpty [
 	| set |
 	set := CTOrderedSet with: 10.
 	set add: 42.
 	self assert: set asArray equals: #(10 42).
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAddDuplicate [
+	| set |
+	set := CTOrderedSet with: 42.
+	
+	self assert: (set add: 42) equals: 42.
+	self assert: set asArray equals: #(42).
 ]
 
 { #category : #'ordered collection tests' }
@@ -61,6 +108,17 @@ CTOrderedSetTest >> testAddFirst [
 	self assert: set equals: expected.
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAddFirstDuplicate [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	set addFirst: #ipsum.
+	expected := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	self assert: set equals: expected.
+]
+
 { #category : #'ordered collection tests' }
 CTOrderedSetTest >> testAddLast [
 	| set expected |
@@ -68,6 +126,17 @@ CTOrderedSetTest >> testAddLast [
 	
 	set addLast: #hello.
 	expected := CTOrderedSet withAll: #(lorem ipsum dolor sit amet hello).
+	
+	self assert: set equals: expected.
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAddLastDuplicate [
+	| set expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	set addLast: #ipsum.
+	expected := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
 	
 	self assert: set equals: expected.
 ]
@@ -100,6 +169,13 @@ CTOrderedSetTest >> testAtPut [
 	
 	expected := CTOrderedSet withAll: #(lorem ipsum hello sit amet).
 	self assert: set equals: expected.
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testAtPutDuplicate [
+	| set |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	self should: [ set at: 3 put: #ipsum ] raise: Error.
 ]
 
 { #category : #'ordered collection tests' }
@@ -148,6 +224,17 @@ CTOrderedSetTest >> testEnumerateCollectDistinct [
 	
 	actual := set collect: [ :each | each first ].
 	expected := CTOrderedSet withAll: #($l $i $d $s $a).
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testEnumerateCollectDuplicate [
+	| set actual expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set collect: [ :each | each size ].
+	expected := CTOrderedSet withAll: #(5 3 4).
 	
 	self assert: actual equals: expected.
 ]
@@ -298,6 +385,15 @@ CTOrderedSetTest >> testInstanceCreationWithAllDistinct [
 	self assert: set asArray equals: #(lorem ipsum dolor sit amet).
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testInstanceCreationWithAllDuplicate [
+	| set |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor ipsum ipsum amet).
+	
+	self assert: set class equals: CTOrderedSet.
+	self assert: set asArray equals: #(lorem ipsum dolor amet).
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testInstanceCreationWithWithDistinct [
 	| set |
@@ -305,6 +401,15 @@ CTOrderedSetTest >> testInstanceCreationWithWithDistinct [
 	
 	self assert: set class equals: CTOrderedSet.
 	self assert: set asArray equals: #(lorem ipsum).
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testInstanceCreationWithWithDuplicate [
+	| set |
+	set := CTOrderedSet with: #lorem with: #lorem.
+	
+	self assert: set class equals: CTOrderedSet.
+	self assert: set asArray equals: #(lorem).
 ]
 
 { #category : #'collection tests' }
@@ -316,6 +421,15 @@ CTOrderedSetTest >> testInstanceCreationWithWithWithDistinct [
 	self assert: set asArray equals: #(lorem ipsum dolor).
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testInstanceCreationWithWithWithDuplicate [
+	| set |
+	set := CTOrderedSet with: #lorem with: #ipsum with: #lorem.
+	
+	self assert: set class equals: CTOrderedSet.
+	self assert: set asArray equals: #(lorem ipsum).
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testInstanceCreationWithWithWithWithDistinct [
 	| set |
@@ -325,6 +439,15 @@ CTOrderedSetTest >> testInstanceCreationWithWithWithWithDistinct [
 	self assert: set asArray equals: #(lorem ipsum dolor sit).
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testInstanceCreationWithWithWithWithDuplicate [
+	| set |
+	set := CTOrderedSet with: #lorem with: #ipsum with: #lorem with: #dolor.
+	
+	self assert: set class equals: CTOrderedSet.
+	self assert: set asArray equals: #(lorem ipsum dolor).
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testInstanceCreationWithWithWithWithWithDistinct [
 	| set |
@@ -332,6 +455,15 @@ CTOrderedSetTest >> testInstanceCreationWithWithWithWithWithDistinct [
 	
 	self assert: set class equals: CTOrderedSet.
 	self assert: set asArray equals: #(lorem ipsum dolor sit amet).
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testInstanceCreationWithWithWithWithWithDuplicate [
+	| set |
+	set := CTOrderedSet with: #lorem with: #ipsum with: #lorem with: #dolor with: #ipsum.
+	
+	self assert: set class equals: CTOrderedSet.
+	self assert: set asArray equals: #(lorem ipsum dolor).
 ]
 
 { #category : #'collection tests' }
