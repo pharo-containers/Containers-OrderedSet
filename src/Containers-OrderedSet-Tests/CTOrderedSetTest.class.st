@@ -65,6 +65,73 @@ CTOrderedSetTest >> testEmptyCollectionSizeIsZero [
 ]
 
 { #category : #'collection tests' }
+CTOrderedSetTest >> testEnumerateCollectDistinct [
+	| set actual expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set collect: [ :each | each first ].
+	expected := CTOrderedSet withAll: #($l $i $d $s $a).
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'collection tests' }
+CTOrderedSetTest >> testEnumerateDetect [
+	| set actual expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set detect: [ :each | each size < 5 ].
+	expected := #sit.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'collection tests' }
+CTOrderedSetTest >> testEnumerateDo [
+	| set actual expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := OrderedCollection new.
+	set do: [ :each | actual add: each size ].
+	
+	expected := OrderedCollection withAll: #(5 5 5 3 4).
+	self assert: actual equals: expected.
+]
+
+{ #category : #'collection tests' }
+CTOrderedSetTest >> testEnumerateInjectInto [
+	| set actual expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set inject: 0 into: [ :sum :each | sum + each size ].
+	expected := 22.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'collection tests' }
+CTOrderedSetTest >> testEnumerateReject [
+	| set actual expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set reject: [ :each | each size = 5 ].
+	expected := CTOrderedSet withAll: #(sit amet).
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'collection tests' }
+CTOrderedSetTest >> testEnumerateSelect [
+	| set actual expected |
+	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
+	
+	actual := set select: [ :each | each size = 5 ].
+	expected := CTOrderedSet withAll: #(lorem ipsum dolor).
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'collection tests' }
 CTOrderedSetTest >> testIncludesFalse [
 	| set |
 	set := CTOrderedSet with: 42.
