@@ -178,6 +178,19 @@ CTOrderedSetTest >> testAtPutDuplicate [
 	self should: [ set at: 3 put: #ipsum ] raise: Error.
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testDifference [
+	| setA setB expected actual |
+	
+	setA := CTOrderedSet withAll: #(a c d b f).
+	setB := CTOrderedSet withAll: #(b c e a).
+	
+	expected := CTOrderedSet withAll: #(d f).
+	actual := setA difference: setB.
+	
+	self assert: actual equals: expected.
+]
+
 { #category : #'ordered collection tests' }
 CTOrderedSetTest >> testEighth [
 	| set expected actual |
@@ -466,6 +479,19 @@ CTOrderedSetTest >> testInstanceCreationWithWithWithWithWithDuplicate [
 	self assert: set asArray equals: #(lorem ipsum dolor).
 ]
 
+{ #category : #'set tests' }
+CTOrderedSetTest >> testIntersection [
+	| setA setB expected actual |
+	
+	setA := CTOrderedSet withAll: #(a c d b f).
+	setB := CTOrderedSet withAll: #(b c e a).
+	
+	expected := CTOrderedSet withAll: #(a c b).
+	actual := setA intersection: setB.
+	
+	self assert: actual equals: expected.
+]
+
 { #category : #'collection tests' }
 CTOrderedSetTest >> testIsEmpty [
 	| set |
@@ -727,6 +753,19 @@ CTOrderedSetTest >> testThird [
 	
 	actual := set third.
 	expected := #three.
+	
+	self assert: actual equals: expected.
+]
+
+{ #category : #'set tests' }
+CTOrderedSetTest >> testUnion [
+	| setA setB expected actual |
+	
+	setA := CTOrderedSet withAll: #(a c d).
+	setB := CTOrderedSet withAll: #(b c e).
+	
+	expected := CTOrderedSet withAll: #(a c d b e).
+	actual := setA union: setB.
 	
 	self assert: actual equals: expected.
 ]
