@@ -59,6 +59,16 @@ CTOrderedSet >> at: anInteger put: anObject [
 	CTDuplicateException signal: 'Can not insert duplicate into a set'.
 ]
 
+{ #category : #enumerating }
+CTOrderedSet >> difference: aCollection [
+	"A set of all elements that appear in this set but not in aCollection. The order is the same as in first set.
+	
+	Example:
+	{a, c, f, b, d} difference: {b, c, e, a} = {f, d}"
+	
+	^ self reject: [ :each | aCollection includes: each ]
+]
+
 { #category : #accessing }
 CTOrderedSet >> intersection: aCollection [
 	"Intersection of two sets. The order is defined as follows:

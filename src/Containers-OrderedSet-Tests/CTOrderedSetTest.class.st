@@ -223,10 +223,10 @@ CTOrderedSetTest >> testAtPutDuplicateSamePosition [
 CTOrderedSetTest >> testDifference [
 	| setA setB expected actual |
 	
-	setA := CTOrderedSet withAll: #(a c d b f).
+	setA := CTOrderedSet withAll: #(a c f b d).
 	setB := CTOrderedSet withAll: #(b c e a).
 	
-	expected := CTOrderedSet withAll: #(d f).
+	expected := CTOrderedSet withAll: #(f d).
 	actual := setA difference: setB.
 	
 	self assert: actual equals: expected.
