@@ -4,6 +4,12 @@ Class {
 	#category : #'Containers-OrderedSet'
 }
 
+{ #category : #'instance creation' }
+CTOrderedSet class >> new: aNumber [ 
+	"SequenceableCollection >> new: and new don't call initialize. So we fix it here"
+	^ (super new: aNumber) initialize
+]
+
 { #category : #adding }
 CTOrderedSet >> addFirst: newObject [
 	"Add newObject to the beginning of the receiver unless the receiver already includes newObject. Answer newObject"	
