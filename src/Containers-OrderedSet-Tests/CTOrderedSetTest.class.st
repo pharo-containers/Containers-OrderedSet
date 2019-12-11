@@ -163,6 +163,23 @@ CTOrderedSetTest >> testAllLargestSubsets [
 	self assert: actual equals: expected.
 ]
 
+{ #category : #tests }
+CTOrderedSetTest >> testAllSubsets [
+	| set expected actual |
+	set := CTOrderedSet withAll: #(a c b).
+	
+	expected := { 
+		CTOrderedSet withAll: #(a) .
+		CTOrderedSet withAll: #(c) .
+		CTOrderedSet withAll: #(b) .
+		CTOrderedSet withAll: #(a c) .
+		CTOrderedSet withAll: #(a b) .
+		CTOrderedSet withAll: #(c b) }.
+		
+	actual := set allSubsets.
+	self assert: actual equals: expected.
+]
+
 { #category : #'ordered collection tests' }
 CTOrderedSetTest >> testAt [
 	| set expected actual |

@@ -29,6 +29,17 @@ CTOrderedSet >> allLargestSubsets [
 	^ self reversed collect: [ :each | self copyWithout: each ].
 ]
 
+{ #category : #'as yet unclassified' }
+CTOrderedSet >> allSubsets [
+	"Generate all possible subsets of this self without self and an empty set.
+	Example:
+	{1, 2, 3} => {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}"
+	
+	"This implementation might not be very fast and has to be improved"
+	^ (self combinations copyWithout: self asArray) collect: [ :eachArray |
+		self species withAll: eachArray ]
+]
+
 { #category : #accessing }
 CTOrderedSet >> at: anInteger put: anObject [
 	"Put anObject at element index anInteger. Raise an exception if the object is already included"
