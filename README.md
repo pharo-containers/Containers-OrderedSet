@@ -29,3 +29,8 @@ spec
   baseline: 'ContainersOrderedSet'
   with: [ spec repository: 'github://olekscode/Containers-OrderedSet/src' ].
 ```
+
+To read more about baselines and Metacello, check out the [Baselines](https://github.com/pharo-open-documentation/pharo-wiki/blob/master/General/Baselines.md) article on [Pharo Wiki](https://github.com/pharo-open-documentation/pharo-wiki).
+
+## How to use it?
+
