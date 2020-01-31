@@ -13,9 +13,19 @@ A `Set` where an order of elements matters or an `OrderedCollection` with no dup
 ## Installation
 To install `CTOrderedSet`, go to the Playground (`Ctrl+OW`) in your [Pharo](https://pharo.org/) image and execute the following Metacello script (select it and press Do-it button or `Ctrl+D`):
 
-```smalltalk
+```Smalltalk
 Metacello new
   baseline: 'ContainersOrderedSet';
   repository: 'github://olekscode/Containers-OrderedSet/src';
   load.
+```
+
+## How to depend on it?
+
+If you want to add a dependency on OrderedSet to your project, include the following lines in your baseline:
+
+```Smalltalk
+spec
+  baseline: 'ContainersOrderedSet'
+  with: [ spec repository: 'github://olekscode/Containers-OrderedSet/src' ].
 ```
