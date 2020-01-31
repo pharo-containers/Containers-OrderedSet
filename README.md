@@ -22,7 +22,7 @@ Metacello new
 
 ## How to depend on it?
 
-If you want to add a dependency on OrderedSet to your project, include the following lines in your baseline:
+If you want to add a dependency on OrderedSet to your project, include the following lines into your baseline:
 
 ```Smalltalk
 spec
@@ -33,4 +33,18 @@ spec
 To read more about baselines and Metacello, check out the [Baselines](https://github.com/pharo-open-documentation/pharo-wiki/blob/master/General/Baselines.md) article on [Pharo Wiki](https://github.com/pharo-open-documentation/pharo-wiki).
 
 ## How to use it?
+
+`CTOrderedSet` has the same API as `OrderedCollection`, extended with the methods of `Set`. So instance creation looks the same:
+
+```Smalltalk
+firstBasket := CTOrderedSet withAll: #(apple apple orange banana orange banana).
+secondBasket := CTOrderedSet withAll: #(banana apple banana banana). 
+```
+
+Or you can use the `asOrderedSet` method:
+
+```Smalltalk
+firstBasket := #(apple apple orange banana orange banana) asOrderedSet.
+secondBasket := #(banana apple banana banana) asOrderedSet. 
+```
 
