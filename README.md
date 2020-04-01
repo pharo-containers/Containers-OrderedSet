@@ -16,7 +16,7 @@ To install `CTOrderedSet`, go to the Playground (`Ctrl+OW`) in your [Pharo](http
 ```Smalltalk
 Metacello new
   baseline: 'ContainersOrderedSet';
-  repository: 'github://olekscode/Containers-OrderedSet/src';
+  repository: 'github://pharo-containers/Containers-OrderedSet/src';
   load.
 ```
 
@@ -27,7 +27,7 @@ If you want to add a dependency on OrderedSet to your project, include the follo
 ```Smalltalk
 spec
   baseline: 'ContainersOrderedSet'
-  with: [ spec repository: 'github://olekscode/Containers-OrderedSet/src' ].
+  with: [ spec repository: 'github://pharo-containers/Containers-OrderedSet/src' ].
 ```
 
 To read more about baselines and Metacello, check out the [Baselines](https://github.com/pharo-open-documentation/pharo-wiki/blob/master/General/Baselines.md) article on [Pharo Wiki](https://github.com/pharo-open-documentation/pharo-wiki).
