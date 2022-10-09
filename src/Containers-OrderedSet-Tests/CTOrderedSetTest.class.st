@@ -383,6 +383,21 @@ CTOrderedSetTest >> testFourth [
 ]
 
 { #category : #'collection tests' }
+CTOrderedSetTest >> testCopyFromToOfOrderedSet [
+	"Allows one to create a copy of the receiver that contains elements from position start to end"
+
+	| t1 t2 t3 |
+	t1 := #(100 200 300 400) asOrderedSet .
+	t2 := t1 copyFrom: 1 to: 2.
+	self assert: t2 equals: #(100 200) asOrderedSet. "-> is Good ! "
+
+	t3 := t1 copyFrom: 4 to: 2.
+	self assertEmpty: t3. "Index 4 >2 -> return Empty "
+
+	self should: [ t1 copyFrom: 5 to: 7 ] raise: Error. "-> Index out Limit"
+] 
+
+{ #category : #'collection tests' }
 CTOrderedSetTest >> testIncludesAllFalse [
 	| set |
 	set := CTOrderedSet withAll: #(lorem ipsum dolor sit amet).
