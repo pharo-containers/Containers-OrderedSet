@@ -1,5 +1,6 @@
 Class {
-	#name : #CTDuplicateException,
-	#superclass : #Error,
-	#category : #'Containers-OrderedSet'
+	#name : 'CTDuplicateException',
+	#superclass : 'Error',
+	#category : 'Containers-OrderedSet',
+	#package : 'Containers-OrderedSet'
 }

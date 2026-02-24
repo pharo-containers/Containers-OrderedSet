@@ -1,6 +1,6 @@
-Extension { #name : #Collection }
+Extension { #name : 'Collection' }
 
-{ #category : #'*Containers-OrderedSet' }
+{ #category : '*Containers-OrderedSet' }
 Collection >> asOrderedSet [
 	^ CTOrderedSet withAll: self
 ]
