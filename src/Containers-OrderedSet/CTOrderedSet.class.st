@@ -120,6 +120,15 @@ CTOrderedSet >> isSupersetOf: aCollection [
 ]
 
 { #category : 'accessing' }
+CTOrderedSet >> swap: oneIndex with: anotherIndex [
+
+	| element |
+	element := self at: oneIndex.
+	super at: oneIndex put: (self at: anotherIndex).
+	super at: anotherIndex put: element
+]
+
+{ #category : 'accessing' }
 CTOrderedSet >> union: aCollection [
 	"Union of two sets. The order is defined as follows:
 	- all elements of the first set go first
