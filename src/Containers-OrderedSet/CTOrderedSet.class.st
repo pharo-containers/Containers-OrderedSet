@@ -94,7 +94,7 @@ CTOrderedSet >> inspectionStats: aBuilder [
 		yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : 'enumerating' }
 CTOrderedSet >> intersection: aCollection [
 	"Intersection of two sets. The order is defined as follows:
 	- all elements of the first that appear in the second set"
