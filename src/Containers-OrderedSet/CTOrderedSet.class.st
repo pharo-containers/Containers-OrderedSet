@@ -26,22 +26,23 @@ CTOrderedSet >> addLast: newObject [
 
 	(self includes: newObject)
 		ifFalse: [ ^ super addLast: newObject].
-	
 	^ newObject
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 CTOrderedSet >> allLargestSubsets [
 	"Generate all subsets of size k-1 where k is the size of receiver"
 	
 	^ self reversed collect: [ :each | self copyWithout: each ].
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 CTOrderedSet >> allSubsets [
 	"Generate all possible subsets of the receiver, excluding the receiver itself and the empty set.
-	Uses a bitmask approach for efficiency.
-	Example: #(a b c) => #(a), #(b), #(c), #(a b), #(a c), #(b c)"
+	Uses a bitmask approach for efficiency."
+	"
+	(CTOrderedSet withAll: #('a' 'b' 'c')) >>> #(#('a') #('b') #('c') #('a' 'b') #('a' 'c') #('b' 'c'))
+	"
 	
 	| subsets size |
 	size := self size.
@@ -72,10 +73,9 @@ CTOrderedSet >> at: anInteger put: anObject [
 
 { #category : 'enumerating' }
 CTOrderedSet >> difference: aCollection [
-	"A set of all elements that appear in this set but not in aCollection. The order is the same as in first set.
-	
-	Example:
-	{a, c, f, b, d} difference: {b, c, e, a} = {f, d}"
+	"A set of all elements that appear in this set but not in aCollection. The order is the same as in first set."
+	"((CTOrderedSet withAll: #('a' 'c' 'f' 'b' 'd')) difference: (CTOrderedSet withAll: #('b' 'c' 'e' 'a')))
+	>>> (CTOrderedSet withAll: #('f' 'd'))"
 	
 	^ self reject: [ :each | aCollection includes: each ]
 ]
@@ -97,10 +97,11 @@ CTOrderedSet >> inspectionStats: aBuilder [
 { #category : 'accessing' }
 CTOrderedSet >> intersection: aCollection [
 	"Intersection of two sets. The order is defined as follows:
-	- all elements of the first that appear in the second set
+	- all elements of the first that appear in the second set"
 	
-	Example:
-	{d, c, a} intersection: {a, d, e} = {d, a}"
+	"
+	((CTOrderedSet withAll: #('d' 'c' 'a')) intersection: (CTOrderedSet withAll: #('a' 'd' 'e'))) >>> (CTOrderedSet withAll: #('d' 'a'))
+	"
 	
 	^ self select: [ :each | aCollection includes: each ]
 ]
@@ -133,9 +134,10 @@ CTOrderedSet >> union: aCollection [
 	"Union of two sets. The order is defined as follows:
 	- all elements of the first set go first
 	- then the elements of the second set that were not in the first set
+	"
 	
-	Example:
-	{a, c, d} union: {a, b, e} = {a, c, d, b, e}"
+	"((CTOrderedSet withAll: #('a' 'c' 'd')) union: (CTOrderedSet withAll: #('a' 'b' 'e')))
+	>>> (CTOrderedSet withAll: #('a' 'c' 'd' 'b' 'e'))"
 	
 	self addAll: aCollection
 ]
